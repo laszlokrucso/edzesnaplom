@@ -66,3 +66,14 @@ Az ajánlás determinisztikus, név és izomcsoport alapján működő szabályr
 Az általános szemlélet szakmai háttere: [NASM: Chest Press Machine](https://www.nasm.org/resource-center/exercise-library/chest-press-machine), különösen a nyomó változatok és a gépi/szabadsúlyos megtámasztás különbsége. A teljes helyettesítési szabályrendszer saját implementáció; nem a NASM által ellenőrzött ajánló.
 
 A cserefunkcióhoz 10 új automatizált teszt készült: mozgás szerinti szűrés, eszközök, ismeretlen gyakorlat, saját előzmény, érvénytelen/ismételt választás, visszavonás, adatmegőrzés és v2 export/import. A teljes helyi csomag 25 tesztje sikeres. A funkciót valódi telefonos edzés közben még nem próbáltuk.
+
+## Sorrend, teljesítés, pihenő és visszavonás
+
+- A gyakorlatok az edzésben és a sablonokban is rendezhetők a fogantyú húzásával, valamint fel/le gombokkal. A pipák a megfelelő gyakorlatokkal együtt mozognak. Az edzés közbeni rendezés nem írja át a sablont; a **mostani sorrend mentése sablonba** művelet csak kifejezett választásra teszi ezt meg, egyező gyakorlatlistánál.
+- Új edzésben a korábbi sorozatok csak javaslatok. A **Kész** jelölést kézzel kell bekapcsolni, érvényes értékekkel. Lezáráskor kizárólag a kipipált sorozatok kerülnek a naplóba; a ki nem pipáltak kihagyásáról az app megerősítést kér. A már lezárt edzés szerkesztése kész állapottal indul.
+- Frissítéskor a régebbi folyamatban lévő edzés értékei megmaradnak, de az app nem találja ki, melyik sorozat történt meg: ezeket egyszer kézzel meg kell jelölni. A már lezárt edzések változatlanok.
+- Sorozat kipipálásakor automatikusan indulhat a pihenő. Ez kikapcsolható, és gyakorlatonként külön pihenő is beállítható. A határidő abszolút időpontként tárolódik, ezért az újratöltés vagy a háttérbe helyezés nem indítja újra. A lejárati jelzés az edzésnézetben működik; nem rendszerértesítés. A mobil böngészők háttérfutása és rezgésjelzése eltérhet.
+- Sorozat-/gyakorlattörlés, sorrendcsere, gyakorlatcsere, edzéslezárás és elvetés után az előző teljes állapot a visszavonás gombbal visszaállítható. Egy lépés őrződik meg az aktuális munkamenetben, a következő mentett módosításig. A gomb a képernyő alján is látható.
+- Öt különböző új vagy módosított, elmentett edzés után exportemlékeztető jelenik meg. Elhalasztható a következő edzésig; egy JSON-export újrakezdi a számlálást. A mentés fülön az utolsó export és a még nem exportált edzések száma is látszik. A számlálás a frissítés/import utáni változtatásoktól indul, a régi edzéseket nem számolja újként.
+
+A helyi boríték `meta` mezőjében élnek a pipák, a pihenőbeállítások és az emlékeztető. Ezek nem kerülnek a kompatibilis v2 JSON-exportba. Az import előtti helyi visszaállítási pont viszont a teljes helyi állapotot megőrzi. Az új állapotkezeléshez 14 teszt került be; a teljes helyi csomag 39 tesztje sikeres. Éles építés és TypeScript-ellenőrzés készül; valódi telefonos húzásos és kattintásos próba még nem történt.
