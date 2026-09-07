@@ -84,3 +84,6 @@ Minden módosítás szinkron helyi mentést végez, visszaolvasásos ellenőrzé
 A külön teljes alkalmazásmentés tartalmazza a naplót, a félbehagyott edzést (üres beviteli mezőkkel együtt), pipákat, jegyzeteket és beállításokat. Ugyanazzal az importálóval visszatölthető. A régi v2 JSON export változatlan, nem tartalmaz webapp-metaadatokat. Import és visszaállítás előtt most teljes mentés készül.
 
 A helyi tárolás nem véd a böngészőadatok törlése vagy tárhely-evikció ellen; erre a letöltött teljes fájl szolgál. A tartós tárolás kérését a böngésző elutasíthatja. Telefonos memória miatti újratöltés nem volt reprodukálható; a visszaállítást, hibás/konkurens írásokat és export/importot modelltesztek ellenőrzik, fizikai telefonos teszt nélkül.
+
+### Edzésnaptár
+A Napló fülön Lista / Naptár kapcsolóval nyitható a havi nézet. Hétfővel indul, kezeli a szökőéveket és az évváltást, jelzi a mai napot, az edzésnapokat és az egy napra mentett több edzést. A kiválasztott nap edzései megnyithatók; a részletekből visszalépve a kiválasztott hónap és nap megmarad. A havi összesítés külön számolja az edzéseket és edzésnapokat. Kizárólag a lezárt naplóbejegyzéseket olvassa, a mentési formátum és a folyamatban lévő edzés változatlan. Dátumcsoportosítás a meglévő napló UTC-dátumával egyezik; a „Ma” a helyi napot jelöli.
