@@ -77,3 +77,10 @@ A cserefunkcióhoz 10 új automatizált teszt készült: mozgás szerinti szűr�
 - Öt különböző új vagy módosított, elmentett edzés után exportemlékeztető jelenik meg. Elhalasztható a következő edzésig; egy JSON-export újrakezdi a számlálást. A mentés fülön az utolsó export és a még nem exportált edzések száma is látszik. A számlálás a frissítés/import utáni változtatásoktól indul, a régi edzéseket nem számolja újként.
 
 A helyi boríték `meta` mezőjében élnek a pipák, a pihenőbeállítások és az emlékeztető. Ezek nem kerülnek a kompatibilis v2 JSON-exportba. Az import előtti helyi visszaállítási pont viszont a teljes helyi állapotot megőrzi. Az új állapotkezeléshez 14 teszt került be; a teljes helyi csomag 39 tesztje sikeres. Éles építés és TypeScript-ellenőrzés készül; valódi telefonos húzásos és kattintásos próba még nem történt.
+
+### Folytatható mentés és gyakorlatmegjegyzések
+Minden módosítás szinkron helyi mentést végez, visszaolvasásos ellenőrzéssel és sikeres mentési időponttal. A „Mentés folytatáshoz” nem zárja le az edzést; az „Edzés lezárása” továbbra is csak a kipipált sorozatokat rögzíti. A gyakorlat-ID-hoz kötött megjegyzés több edzésen át megmarad, szerkeszthető edzés közben és a gyakorlat történeténél.
+
+A külön teljes alkalmazásmentés tartalmazza a naplót, a félbehagyott edzést (üres beviteli mezőkkel együtt), pipákat, jegyzeteket és beállításokat. Ugyanazzal az importálóval visszatölthető. A régi v2 JSON export változatlan, nem tartalmaz webapp-metaadatokat. Import és visszaállítás előtt most teljes mentés készül.
+
+A helyi tárolás nem véd a böngészőadatok törlése vagy tárhely-evikció ellen; erre a letöltött teljes fájl szolgál. A tartós tárolás kérését a böngésző elutasíthatja. Telefonos memória miatti újratöltés nem volt reprodukálható; a visszaállítást, hibás/konkurens írásokat és export/importot modelltesztek ellenőrzik, fizikai telefonos teszt nélkül.
