@@ -54,3 +54,15 @@ npm run build
 
 A Pages-felület általában nyilvános; a program nem tölt fel edzésadatokat. Az új webcímen a böngésző külön helyi naplót használ, ezért a korábbi webappból exportált JSON-t egyszer be kell tölteni. A jelenlegi Sites-oldal ettől változatlanul megmarad.
 A GitHub Pages build kész csomagja a `dist/pages` könyvtárba kerül. A build az assetPrefix alapján hivatkozza a fájlokat, majd a Pages számára igazítja a könyvtárszerkezetet. A helyi ellenőrzés 15 sikeres adatkezelési tesztet, TypeScript-ellenőrzést és a Pages útvonalaihoz tartozó fájlok ellenőrzését tartalmazza; tényleges GitHub-közzététel bejelentkezés után végezhető el.
+
+## Gyakorlatcsere és ajánlások
+
+Aktív vagy szerkesztett edzésben a gyakorlat melletti **Csere** megnyitja az alternatívákat. A lista eszköz szerint szűrhető; minden találat jelzi a mozgáscsaládot, az eszközt, a saját előzmény elérhetőségét és az észlelt végrehajtási különbségeket. Az **Összes gyakorlat** nézetben kézi választás is lehetséges. Az edzésben már szereplő gyakorlat nem választható ismét.
+
+A csere előtt előnézet jelzi, hány sorozat cserélődik le. Kizárólag a kiválasztott új gyakorlat legutóbbi saját súlyai és ismétlései kerülnek be; előzmény nélkül üres sorozatot kell kitölteni. Az eredeti gyakorlat teljes tartalma a következő módosításig visszavonható. A sablon, más gyakorlatok, előzmények és a kompatibilis export szerkezete változatlan marad. A visszavonási állapot csak az aktuális böngészőmunkamenetben él; újratöltés után nem áll rendelkezésre.
+
+Az ajánlás determinisztikus, név és izomcsoport alapján működő szabályrendszer. Hasonló mozgáscsaládon belül a testhelyzet, az egy-/kétoldalas végrehajtás, az izomcímkék és a saját előzmény alakítja a sorrendet. Nem személyre szabott edzésterv és nem állít azonos hatékonyságot vagy azonos használható súlyt. Ismeretlen mozgásnál nincs automatikus ajánlás. A névből nem biztosan megállapítható eszközt ismeretlenként jelöli.
+
+Az általános szemlélet szakmai háttere: [NASM: Chest Press Machine](https://www.nasm.org/resource-center/exercise-library/chest-press-machine), különösen a nyomó változatok és a gépi/szabadsúlyos megtámasztás különbsége. A teljes helyettesítési szabályrendszer saját implementáció; nem a NASM által ellenőrzött ajánló.
+
+A cserefunkcióhoz 10 új automatizált teszt készült: mozgás szerinti szűrés, eszközök, ismeretlen gyakorlat, saját előzmény, érvénytelen/ismételt választás, visszavonás, adatmegőrzés és v2 export/import. A teljes helyi csomag 25 tesztje sikeres. A funkciót valódi telefonos edzés közben még nem próbáltuk.
