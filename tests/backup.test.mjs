@@ -1,8 +1,12 @@
-import test from 'node:test';
+import nodeTest from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {clone,parseBackup,validateBackup,exportBackup,startWorkout,finishWorkout,templateFrom,ordered,dateInput,emptyBackup} from '../lib/backup.mjs';
-const input=fs.readFileSync(new URL('../../edzesnaplo-2026-08-20.json',import.meta.url),'utf8');
+// The personal backup stays outside Git; CI runs the synthetic suite instead.
+const fixture=new URL('../../edzesnaplo-2026-08-20.json',import.meta.url);
+const available=fs.existsSync(fixture);
+const test=(name,run)=>nodeTest(name,{skip:!available},run);
+const input=available?fs.readFileSync(fixture,'utf8'):'{}';
 const original=JSON.parse(input);
 test('Actual backup imports all original data without normalizing fields',()=>{assert.deepEqual(parseBackup(input),original);assert.equal(original.workouts.length,66);assert.equal(original.exercises.length,96);assert.equal(original.templates.length,6);assert.equal(original.bodyweights.length,11);});
 test('Untouched backup round trip is deeply equal except export timestamp',()=>{const out=parseBackup(exportBackup(parseBackup(input)));out.exported=original.exported;assert.deepEqual(out,original);});

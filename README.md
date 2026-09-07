@@ -37,3 +37,20 @@ npm run build
 A tesztek a projekt szülőkönyvtárában lévő `edzesnaplo-2026-08-20.json` eredeti mintával futnak. A kész statikus oldal a `dist/client` könyvtárba kerül. A build az offline gyorsítótár fájllistáját is előállítja. A Windows build segédje a sikeres azonnali kilépés helyett hagyja bezáródni a natív libuv-kezelőket; a hibás kilépést nem módosítja.
 
 Ellenőrzött: 11 adatkompatibilitási teszt, TypeScript-ellenőrzés és éles build. Böngészős kattintásos / vizuális ellenőrzés és tényleges telefonos offline próba nem történt. Az opcionális WebMCP összegző eszköz csak támogató böngészőben regisztrálódik; ilyen környezetben még nem ellenőrzött.
+
+## GitHub Pages
+
+A `.github/workflows/pages.yml` automatikusan ellenőrzi, felépíti és közzéteszi az appot a `main` ágra küldött változtatásokból. A GitHub-tároló **Settings → Pages → Source** mezőjében a **GitHub Actions** lehetőséget kell kiválasztani.
+
+A GitHub Pages által visszaadott alapútvonalat a build átveszi, így a `https://felhasznalo.github.io/tarolonev/` cím és az egyéni domain is használható. A személyes JSON-fájlt ne add a tárolóhoz. A tesztek mesterséges adatokkal is futnak; a személyes mentésre épülő 11 helyi teszt annak hiányában kimarad.
+
+Helyi próba GitHub Pages útvonallal PowerShellben:
+
+```powershell
+$env:DEPLOY_TARGET='github-pages'
+$env:NEXT_PUBLIC_BASE_PATH='/edzesnaplom'
+npm run build
+```
+
+A Pages-felület általában nyilvános; a program nem tölt fel edzésadatokat. Az új webcímen a böngésző külön helyi naplót használ, ezért a korábbi webappból exportált JSON-t egyszer be kell tölteni. A jelenlegi Sites-oldal ettől változatlanul megmarad.
+A GitHub Pages build kész csomagja a `dist/pages` könyvtárba kerül. A build az assetPrefix alapján hivatkozza a fájlokat, majd a Pages számára igazítja a könyvtárszerkezetet. A helyi ellenőrzés 15 sikeres adatkezelési tesztet, TypeScript-ellenőrzést és a Pages útvonalaihoz tartozó fájlok ellenőrzését tartalmazza; tényleges GitHub-közzététel bejelentkezés után végezhető el.
